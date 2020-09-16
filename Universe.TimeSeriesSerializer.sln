@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universe.TimeSeriesSerializer", "Universe.TimeSeriesSerializer\Universe.TimeSeriesSerializer.csproj", "{224091E1-2907-4914-9C27-B1B8546D9BAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universe.TimeSeriesSerializer.Tests", "Universe.TimeSeriesSerializer.Tests\Universe.TimeSeriesSerializer.Tests.csproj", "{D39566B8-BF30-48F4-8DD6-DAAC20F619D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Universe.TimeSeriesSerializer.Benchmark", "Universe.TimeSeriesSerializer.Benchmark\Universe.TimeSeriesSerializer.Benchmark.csproj", "{953DD474-D2AA-493B-9430-032891B40B41}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{224091E1-2907-4914-9C27-B1B8546D9BAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{224091E1-2907-4914-9C27-B1B8546D9BAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{224091E1-2907-4914-9C27-B1B8546D9BAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{224091E1-2907-4914-9C27-B1B8546D9BAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D39566B8-BF30-48F4-8DD6-DAAC20F619D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D39566B8-BF30-48F4-8DD6-DAAC20F619D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D39566B8-BF30-48F4-8DD6-DAAC20F619D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D39566B8-BF30-48F4-8DD6-DAAC20F619D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{953DD474-D2AA-493B-9430-032891B40B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{953DD474-D2AA-493B-9430-032891B40B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{953DD474-D2AA-493B-9430-032891B40B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{953DD474-D2AA-493B-9430-032891B40B41}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
