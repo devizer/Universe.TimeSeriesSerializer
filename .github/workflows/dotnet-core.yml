@@ -35,12 +35,15 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-    - name: Benchmark
+    - name: Reinstall dotnet and BenchmarkDotNet.Tool
       run: |
         # dotnet tool install -g BenchmarkDotNet.Tool
         export DOTNET_TARGET_DIR=/usr/share/dotnet
         curl -ksSL -o /tmp/install-DOTNET.sh https://raw.githubusercontent.com/devizer/test-and-build/master/lab/install-DOTNET.sh; 
         bash /tmp/install-DOTNET.sh;
         sudo ln -f -s ${DOTNET_TARGET_DIR}/dotnet /usr/local/bin/dotnet
-
-        dotnet benchmark --runtimes netcoreapp3.1 -f '*' **/*.Benchmark.exe 
+    - name: dotnet --info
+      run: dotnet --info
+    - name: Benchmark
+      run: dotnet benchmark --runtimes netcoreapp3.1 -f '*' **/*.Benchmark.exe
+         
