@@ -51,7 +51,9 @@ jobs:
         export PATH="/usr/share/dotnet:$PATH"
         dotnet tool uninstall BenchmarkDotNet.Tool -g || true
         dotnet tool install -g BenchmarkDotNet.Tool --version 0.12.0
+        pushd Universe.TimeSeriesSerializer.Benchmark/bin/Release/netcoreapp3.1
         Say "File info"
-        ls -la Universe.TimeSeriesSerializer.Benchmark/bin/Release/netcoreapp3.1/Universe.TimeSeriesSerializer.Benchmark || true
-        Say "PATH is [$PATH]"; dotnet benchmark Universe.TimeSeriesSerializer.Benchmark/bin/Release/netcoreapp3.1/Universe.TimeSeriesSerializer.Benchmark.dll --runtimes netcoreapp3.1 -f '*' 
+        ls -la Universe.TimeSeriesSerializer.Benchmark || true
+        Say "PATH is [$PATH]"; 
+        dotnet benchmark Universe.TimeSeriesSerializer.Benchmark.dll --runtimes netcoreapp3.1 -f '*' 
          
