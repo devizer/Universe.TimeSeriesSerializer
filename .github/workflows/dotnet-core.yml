@@ -43,7 +43,7 @@ jobs:
         bash /tmp/install-DOTNET.sh;
         sudo ln -f -s ${DOTNET_TARGET_DIR}/dotnet /usr/local/bin/dotnet
     - name: dotnet --info
-      run: dotnet --info; Say "PATH is [$PATH]"
+      run: export PATH="/usr/share/dotnet:$PATH"; dotnet --info; Say "PATH is [$PATH]"
     - name: Benchmark
-      run: export PATH="/usr/share/dotnet:$PATH"; dotnet benchmark --runtimes netcoreapp3.1 -f '*' **/*.Benchmark.exe
+      run: Say "PATH is [$PATH]"; dotnet benchmark --runtimes netcoreapp3.1 -f '*' **/*.Benchmark.exe
          
