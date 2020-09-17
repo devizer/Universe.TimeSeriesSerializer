@@ -12,6 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: System Info
+      run: |
+        script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+        Say "Environment"
+        printenv | sort
+        Say "Free Space"
+        df -T
+        Say "CPU"
+        cat /proc/cpuinfo
+        Say "dotnet --info"
+        dotnet --info
+        
     - uses: actions/checkout@v2
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
@@ -23,3 +35,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    - name: Benchmark
+      run: |
+        dotnet tool install -g BenchmarkDotNet.Tool
+        dotnet benchmark --runtimes netcoreapp3.1 -f '*' **/*.Benchmark.exe 
