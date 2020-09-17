@@ -44,6 +44,8 @@ jobs:
         sudo ln -f -s ${DOTNET_TARGET_DIR}/dotnet /usr/local/bin/dotnet
     - name: dotnet --info
       run: export PATH="/usr/share/dotnet:$PATH"; dotnet --info; Say "PATH is [$PATH]"
+    - name: show files
+      run: ls -la Universe.TimeSeriesSerializer.Benchmark/bin/Release/netcoreapp3.1/* || true
     - name: Benchmark
       run: |
         export PATH="/usr/share/dotnet:$PATH"
