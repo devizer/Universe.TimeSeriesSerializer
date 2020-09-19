@@ -17,11 +17,11 @@ steps:
       Say "AGENT_OS: '${AGENT_OS}'"
       DOTNET_Url=https://dot.net/v1/dotnet-install.sh; 
       try-and-retry curl -o /tmp/_dotnet-install.sh -ksSL $DOTNET_Url
-      time try-and-retry timeout 666 sudo -E bash /tmp/_dotnet-install.sh -c 5.0.100-rc.1 -i /usr/share/dotnet
+      # time try-and-retry timeout 666 sudo -E bash /tmp/_dotnet-install.sh -c 5.0.100-rc.1 -i /usr/share/dotnet
       
       pushd /usr/share/dotnet
-      curl -o _dotnet-sdk-5.tar.gz https://download.visualstudio.microsoft.com/download/pr/e5536fae-e963-4fa6-a203-15604c7d703a/d0968c03feeeed41c2428854e13c0085/dotnet-sdk-5.0.100-rc.1.20452.10-linux-x64.tar.gz
-      tar xzf _dotnet-sdk-5.tar.gz
+      sudo curl -o _dotnet-sdk-5.tar.gz https://download.visualstudio.microsoft.com/download/pr/e5536fae-e963-4fa6-a203-15604c7d703a/d0968c03feeeed41c2428854e13c0085/dotnet-sdk-5.0.100-rc.1.20452.10-linux-x64.tar.gz
+      sudo tar xzf _dotnet-sdk-5.tar.gz
       popd
       
       dotnet --info
