@@ -39,7 +39,7 @@ steps:
   - script: |
       set -e
       PACKAGE_VER="${MAJOR_MINOR}.42"
-      dotnet build -c Release /p:"$PACKAGE_VER=" /p:"Version=$PACKAGE_VER"
+      dotnet build -c Release /p:"PackageVersion=$PACKAGE_VER" /p:"Version=$PACKAGE_VER"
       dotnet test -c Release -f netcoreapp3.1
     displayName: 'Build'
 
