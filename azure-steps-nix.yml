@@ -45,12 +45,15 @@ steps:
     displayName: 'preinstall qemu-user-static and toilet' 
 
   - script: |
+      dotnet restore || dotnet restore --disable-parallel 
+      msbuild /t:Restore || true
+    displayName: 'Restore dependencies'
+
+  - script: |
       set -e
       version_build=$(set TZ=GMT; git log -n 999999 --date=raw --pretty=format:"%cd" | wc -l)
       PACKAGE_VER="${MAJOR_MINOR}.$version_build"
       Say "PACKAGE_VER: $PACKAGE_VER"
-      dotnet restore || dotnet restore --disable-parallel 
-      msbuild /t:Restore || true
       msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=$PACKAGE_VER /p:Version=$PACKAGE_VER
     displayName: 'Build'
 
