@@ -4,12 +4,13 @@ using System.Text;
 
 namespace Universe.TimeSeriesSerializer
 {
+    // Doesnt trim useless zeros at the end
     public class DoubleFormatterV2
     {
-        private const int MAX_DIGITS_SIGNED = 19;
-        private const int MAX_DIGITS_UNSIGNED = 20;
+        internal const int MAX_DIGITS_SIGNED = 19;
+        internal const int MAX_DIGITS_UNSIGNED = 20;
 
-        private static long[] Power10Signed = new[]
+        internal static long[] Power10Signed = new[]
         {
             1L, 
             10, 
@@ -74,6 +75,11 @@ namespace Universe.TimeSeriesSerializer
                 
                 OptimizedLongFormatter.HeaplessAppend(b, f);
             }
+            else
+            {
+                b.Append(".0");
+            }
+
         }
     }
 }

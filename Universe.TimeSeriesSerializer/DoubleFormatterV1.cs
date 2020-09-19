@@ -54,6 +54,10 @@ namespace Universe.TimeSeriesSerializer
                     for (int pos = 0; pos <= lastDecimal; pos++) b.Append(chars[pos]);
                 }
             }
+            else
+            {
+                b.Append(".0");
+            }
         }
     }
 }
