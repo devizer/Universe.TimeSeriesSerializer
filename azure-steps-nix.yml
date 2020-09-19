@@ -41,6 +41,7 @@ steps:
       version_build=$(set TZ=GMT; git log -n 999999 --date=raw --pretty=format:"%cd" | wc -l)
       PACKAGE_VER="${MAJOR_MINOR}.$version_build"
       Say "PACKAGE_VER: $PACKAGE_VER"
+      msbuild /t:Restore || dotnet restore || dotnet restore --disable-parallel 
       msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=$PACKAGE_VER /p:Version=$PACKAGE_VER
     displayName: 'Build'
 
