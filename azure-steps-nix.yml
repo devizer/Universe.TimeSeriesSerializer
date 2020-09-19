@@ -95,7 +95,7 @@ steps:
       popd
       
       Say "Rebuild for v5.0"
-      Reset-Target-Framework -fw net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0
+      Reset-Target-Framework -fw "net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0"
       msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=$PACKAGE_VER /p:Version=$PACKAGE_VER
       
       pushd Universe.TimeSeriesSerializer.Benchmark
