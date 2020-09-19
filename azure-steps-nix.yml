@@ -1,0 +1,66 @@
+# AGENT_OS=Linux|Darwin|Windows_NT
+
+steps:
+
+  - bash: |
+      sudo rm -f /usr/local/bin/Say || true
+      script=https://raw.githubusercontent.com/devizer/test-and-build/master/install-build-tools-bundle.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | bash
+      try-and-retry sudo apt-get install p7zip-full -y
+      try-and-retry sudo apt-get install p7zip -y
+      Say "7z"
+      7z || true
+      Say "7za"
+      7za || true
+    displayName: '7z version'
+
+  - bash: |
+      Say "AGENT_OS: '${AGENT_OS}'"
+      dotnet --info
+      Say "Environment"
+      printenv | sort
+    displayName: 'Install dotnet sdk 3.1 on linux/osx'
+
+  - bash: |
+      sudo apt-get install nuget || true;
+      nuget >/tmp/nuget-ver
+      cat /tmp/nuget-ver | head -1
+    displayName: 'Install NuGET'
+
+  - script: |
+      time list-packages
+    condition: eq(variables['OS'], 'Linux')
+    displayName: 'List Packages'
+
+  - script: |
+      try-and-retry sudo apt-get update -q
+      smart-apt-install qemu-user-static toilet
+    displayName: 'preinstall qemu-user-static and toilet' 
+
+  - script: |
+      dotnet build -c Release /p:"PackageVersion=$Version" /p:"Version=$Version"
+      dotnet test -c Release -f netcoreapp3.1
+    displayName: 'Build'
+
+
+  - script: |
+      set -e
+      cd Universe.TimeSeriesSerializer/bin/Release/
+      ls -la 
+    condition: succeededOrFailed()
+    displayName: 'build nuget'
+    env:
+      MY_NUGET_PACKAGER: $(NUGET_PACKAGER)
+
+  - script: |
+      Show-System-Stat || true
+      df -h -T
+      Say "docker processes"
+      docker ps || true
+    condition: succeededOrFailed()
+    displayName: 'System Stat'
+
+  - task: PublishBuildArtifacts@1
+    condition: succeededOrFailed()
+    inputs:
+      pathtoPublish: '$(Build.Repository.LocalPath)'
+      artifactName: 'Working'
