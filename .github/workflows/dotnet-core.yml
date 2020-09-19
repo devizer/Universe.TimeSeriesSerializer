@@ -1,4 +1,4 @@
-name: .NET Core
+name: Time Series Serializer
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  build_and_test_and_bench:
 
     runs-on: ubuntu-latest
 

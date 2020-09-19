@@ -62,18 +62,17 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             Data = list.ToArray();
         }
 
-        [Benchmark]
+        [Benchmark(Description = "Optimized")]
         public StringBuilder Optimized()
         {
             return Serialize(optionalConverter: LongArrayConverter.Instance);
         }
 
-        [Benchmark(Baseline = true)]
+        [Benchmark(Baseline = true, Description = "Default")]
         public StringBuilder Default()
         {
             return Serialize();
         }
-
 
         private StringBuilder Serialize(JsonConverter optionalConverter = null)
         {
