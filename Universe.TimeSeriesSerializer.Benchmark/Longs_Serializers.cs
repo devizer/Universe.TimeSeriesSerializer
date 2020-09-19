@@ -43,6 +43,9 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 ProcessDictionaryKeys = true,
             }
         };
+        
+        private JsonSerializerSettings DefaultSettings, OptimizedSettings;
+
 
         [GlobalSetup]
         public void Setup()
@@ -60,21 +63,39 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             }
 
             Data = list.ToArray();
+            
+            DefaultSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.None,
+                ContractResolver = TheContractResolver,
+                Converters = new JsonConverterCollection(),
+            };
+
+            var optimizedConverters = new JsonConverterCollection();
+            optimizedConverters.Add(LongArrayConverter.Instance);
+            OptimizedSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.None,
+                ContractResolver = TheContractResolver,
+                Converters = optimizedConverters,
+            };
+
         }
 
         [Benchmark(Description = "long:Optimized")]
-        public StringBuilder Optimized()
+        public string Optimized()
         {
-            return Serialize(optionalConverter: LongArrayConverter.Instance);
+            // return Serialize_Wrong_And_Slow(optionalConverter: LongArrayConverter.Instance);
+            return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
         [Benchmark(Baseline = true, Description = "long:Default")]
-        public StringBuilder Default()
+        public string Default()
         {
-            return Serialize();
+            return JsonConvert.SerializeObject(Data, DefaultSettings);
         }
 
-        private StringBuilder Serialize(JsonConverter optionalConverter = null)
+        private StringBuilder Serialize_Wrong_And_Slow(JsonConverter optionalConverter = null)
         {
             JsonSerializer ser = new JsonSerializer()
             {

@@ -39,6 +39,8 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             }
         };
 
+        private JsonSerializerSettings DefaultSettings, OptimizedSettings;
+
         [GlobalSetup]
         public void Setup()
         {
@@ -53,21 +55,39 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             }
 
             Data = list.ToArray();
+            
+            DefaultSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.None,
+                ContractResolver = TheContractResolver,
+                Converters = new JsonConverterCollection(),
+            };
+
+            var optimizedConverters = new JsonConverterCollection();
+            optimizedConverters.Add(DoubleArrayConverter.Create(6));
+            OptimizedSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.None,
+                ContractResolver = TheContractResolver,
+                Converters = optimizedConverters,
+            };
+
         }
 
-        [Benchmark(Description = "double:Optimized")]
-        public StringBuilder Optimized()
+        [Benchmark(Description = "double:optimized")]
+        public string Optimized()
         {
-            return Serialize(optionalConverter: DoubleArrayConverter.Create(6));
+            // return Serialize(optionalConverter: DoubleArrayConverter.Create(6));
+            return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
-        [Benchmark(Baseline = true, Description = "double:Default")]
-        public StringBuilder Default()
+        [Benchmark(Baseline = true, Description = "double:default")]
+        public string Default()
         {
-            return Serialize();
+            return JsonConvert.SerializeObject(Data, DefaultSettings);
         }
 
-        private StringBuilder Serialize(JsonConverter optionalConverter = null)
+        private StringBuilder Serialize_Wrong_and_Slow(JsonConverter optionalConverter = null)
         {
             JsonSerializer ser = new JsonSerializer()
             {
@@ -76,6 +96,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
 
             if (optionalConverter != null) ser.Converters.Add(optionalConverter);
             ser.ContractResolver = TheContractResolver;
+            
 
             StringBuilder json = new StringBuilder();
             StringWriter jwr = new StringWriter(json);
