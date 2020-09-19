@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 
 namespace Universe.TimeSeriesSerializer
 {
-    public enum DoubleArrayConverterVersion { V1, V2, V3}
+    public enum DoubleArrayConverterVersion : byte { V1 = 0, V2, V3, Default = 42 }
+    
     public class DoubleArrayConverter : JsonConverter
     {
         private static readonly Type ArrayType = typeof(double[]);
@@ -49,8 +50,7 @@ namespace Universe.TimeSeriesSerializer
                     for (int pos = 0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
-                        if (true || ver == DoubleArrayConverterVersion.V1)
-                            DoubleFormatterV1.Optimized_N_Digits(stringBuilder, arr[pos], digits);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, arr[pos], Digits, Version);
                     }
                 }
                 else if (value is IEnumerable<long> enumerable)
@@ -60,8 +60,7 @@ namespace Universe.TimeSeriesSerializer
                     foreach (double item in enumerable)
                     {
                         if (pos++ != 0) stringBuilder.Append(',');
-                        if (true || ver == DoubleArrayConverterVersion.V1)
-                            DoubleFormatterV1.Optimized_N_Digits(stringBuilder, item, digits);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, Digits, Version);
                     }
                 }
                 else
