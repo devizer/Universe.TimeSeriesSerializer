@@ -67,7 +67,6 @@ namespace Universe.TimeSeriesSerializer
                     throw new InvalidOperationException("LongArrayConverter.CanConvert does not work properly. Report it.");
                 }
                 
-
                 writer.WriteStartArray();
                 writer.WriteRaw(stringBuilder.ToString());
                 writer.WriteEndArray();

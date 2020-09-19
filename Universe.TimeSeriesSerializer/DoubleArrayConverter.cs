@@ -46,11 +46,32 @@ namespace Universe.TimeSeriesSerializer
                 if (value is double[] arr)
                 {
                     int len = arr.Length;
-                    stringBuilder = new StringBuilder(len << 1);
+                    stringBuilder = new StringBuilder(len << 4);
                     for (int pos = 0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
                         OptimizedDoubleConverter.ConvertToJson(stringBuilder, arr[pos], Digits, Version);
+                    }
+                }
+                else if (value is List<double> list)
+                {
+                    int len = list.Count;
+                    stringBuilder = new StringBuilder(len << 4);
+                    for(int pos=0; pos < len; pos++)
+                    {
+                        if (pos != 0) stringBuilder.Append(',');
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, list[pos], Digits, Version);
+                    }
+                }
+                else if (value is ICollection<double> collection)
+                {
+                    int len = collection.Count;
+                    stringBuilder = new StringBuilder(len << 4);
+                    int pos = 0;
+                    foreach (double item in collection)
+                    {
+                        if (pos++ != 0) stringBuilder.Append(',');
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, Digits, Version);
                     }
                 }
                 else if (value is IEnumerable<long> enumerable)

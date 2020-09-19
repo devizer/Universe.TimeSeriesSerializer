@@ -16,7 +16,10 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         public enum CollectionFlavour
         {
             Array,
+            List,
             ROList,
+            ROArray,
+            Enumerable,
         }
         
         private object[] Data;
@@ -27,7 +30,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         // [Params(true, false)]
         public bool Minify = true;
 
-        [Params(CollectionFlavour.Array, CollectionFlavour.ROList)]
+        [Params(CollectionFlavour.Array, CollectionFlavour.List, CollectionFlavour.ROArray, CollectionFlavour.ROList, CollectionFlavour.Enumerable)]
         public CollectionFlavour Kind;
 
         private static readonly DefaultContractResolver TheContractResolver = new DefaultContractResolver
@@ -49,8 +52,11 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             for (int i = 0; i < ArraysCount; i++)
             {
                 var item = Enumerable.Range(1, 61).Select(x => rand.NextDouble() * 10000);
-                if (Kind == CollectionFlavour.Array) list.Add(item.ToArray());
+                if (Kind == CollectionFlavour.List) list.Add(item.ToList());
+                else if (Kind == CollectionFlavour.Array) list.Add(item.ToArray());
                 else if (Kind == CollectionFlavour.ROList) list.Add(item.ToList().ToImmutableList());
+                else if (Kind == CollectionFlavour.ROArray) list.Add(item.ToList().ToImmutableArray());
+                else if (Kind == CollectionFlavour.Enumerable) list.Add(AsEnumerable(item.ToArray()));
                 else throw new InvalidOperationException($"Unknown flavour: {Kind}");
             }
 
@@ -105,6 +111,15 @@ namespace Universe.TimeSeriesSerializer.Benchmark
 
             return json;
         }
+        
+        static IEnumerable<double> AsEnumerable(IEnumerable<double> arg)
+        {
+            foreach (var l in arg)
+            {
+                yield return l;
+            }
+        }
+
 
     }
 }
