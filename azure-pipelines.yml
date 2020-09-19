@@ -1,6 +1,7 @@
 # name: $(BuildID).$(Date:yyyyMMdd)
 variables:
     MAJOR_MINOR: "1.0"
+    LLVM: "8"
 
 jobs:
 
@@ -10,7 +11,7 @@ jobs:
     timeoutInMinutes: 360
     cancelTimeoutInMinutes: 10
     pool:
-      vmImage: 'ubuntu-20.04'
+      vmImage: 'ubuntu-18.04'
     steps:
       - template: azure-steps-nix.yml
 
