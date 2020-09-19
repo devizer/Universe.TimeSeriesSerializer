@@ -7,7 +7,7 @@ jobs:
   - job: Serializers_On_Focal
     variables:
       OS: Linux
-    timeoutInMinutes: 120
+    timeoutInMinutes: 360
     cancelTimeoutInMinutes: 10
     pool:
       vmImage: 'ubuntu-20.04'
