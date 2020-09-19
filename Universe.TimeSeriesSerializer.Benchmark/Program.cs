@@ -2,6 +2,9 @@
 using System.Runtime.InteropServices;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Environments;
+using BenchmarkDotNet.Exporters;
+using BenchmarkDotNet.Exporters.Csv;
+using BenchmarkDotNet.Exporters.Json;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
@@ -30,6 +33,12 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 config = config.With(new[] {run.With(monoRuntime).WithId("LLVM-Off")});
                 config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("LLVM-On")});
             }
+            
+            config = config.With(JsonExporter.Custom(fileNameSuffix: "-full", indentJson: true, excludeMeasurements: false));
+            config = config.With(JsonExporter.Custom(fileNameSuffix: "-brief", indentJson: true, excludeMeasurements: true));
+            config = config.With(MarkdownExporter.Default);
+            config = config.With(HtmlExporter.Default);
+            config = config.With(CsvExporter.Default);
 
             var summary = BenchmarkRunner.Run(typeof(Program).Assembly, config);
         }
