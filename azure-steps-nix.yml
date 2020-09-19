@@ -53,7 +53,7 @@ steps:
   - script: |
       set -e
       pushd Universe.TimeSeriesSerializer/bin/Release
-      ls -la *.nupkg*
+      ls -la *nupkg*
       try-and-retry nuget push *.nupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
       try-and-retry nuget push *.snupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
       popd
