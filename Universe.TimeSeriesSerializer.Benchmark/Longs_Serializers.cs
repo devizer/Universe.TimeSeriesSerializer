@@ -82,14 +82,14 @@ namespace Universe.TimeSeriesSerializer.Benchmark
 
         }
 
-        [Benchmark(Description = "long:Optimized")]
+        [Benchmark(Description = "long:optimized")]
         public string Optimized()
         {
             // return Serialize_Wrong_And_Slow(optionalConverter: LongArrayConverter.Instance);
             return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
-        [Benchmark(Baseline = true, Description = "long:Default")]
+        [Benchmark(Baseline = true, Description = "long:default")]
         public string Default()
         {
             return JsonConvert.SerializeObject(Data, DefaultSettings);
