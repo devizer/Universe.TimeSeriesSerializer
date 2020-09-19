@@ -11,7 +11,7 @@ using Newtonsoft.Json.Serialization;
 namespace Universe.TimeSeriesSerializer.Benchmark
 {
     [RankColumn, MemoryDiagnoser]
-    public class StandardVsCustomSerializer
+    public class Longs_Serializers
     {
         public enum CollectionFlavour
         {
