@@ -5,7 +5,7 @@ variables:
 
 jobs:
 
-  - job: Serializers_On_Focal
+  - job: Serializers_On_Linux
     variables:
       OS: Linux
     timeoutInMinutes: 360
