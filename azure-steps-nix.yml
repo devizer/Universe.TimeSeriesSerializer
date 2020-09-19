@@ -29,7 +29,12 @@ steps:
     
 
   - bash: |
-      sudo apt-get install nuget || true;
+      sudo apt-get update -qq
+      for p in "mono-runtime" "mono-complete" "msbuild" "nuget"; do
+        Say "INSTALLING $p"
+        sudo apt-get install -y -qq "$p"
+      done
+
       nuget >/tmp/nuget-ver
       cat /tmp/nuget-ver | head -1
     displayName: 'Install NuGET'
@@ -80,7 +85,18 @@ steps:
   - script: |
       set -e
       pushd Universe.TimeSeriesSerializer.Benchmark
-      dotnet run -c Release -f netcoreapp3.1
+      # dotnet run -c Release -f netcoreapp3.1
+
+      pushd bin/Release/net4.8
+      Say "ABOUT Universe.TimeSeriesSerializer.Benchmark.exe FILE:"
+      ls -la Universe.TimeSeriesSerializer.Benchmark.exe
+    
+      Say "AOT-ing"
+      mono --aot=try-llvm -O=all Universe.TimeSeriesSerializer.Benchmark.exe
+      
+      Say "LAUNCHING"
+      mono BenchmarksZoo.exe
+      
       popd
     displayName: 'Benchmark'
 
