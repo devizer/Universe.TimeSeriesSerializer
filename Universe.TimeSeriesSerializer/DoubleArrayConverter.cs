@@ -50,7 +50,7 @@ namespace Universe.TimeSeriesSerializer
                     for (int pos = 0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
-                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, arr[pos], Digits, Version);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, arr[pos], digits, ver);
                     }
                 }
                 else if (value is List<double> list)
@@ -60,7 +60,7 @@ namespace Universe.TimeSeriesSerializer
                     for(int pos=0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
-                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, list[pos], Digits, Version);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, list[pos], digits, ver);
                     }
                 }
                 else if (value is ICollection<double> collection)
@@ -71,7 +71,7 @@ namespace Universe.TimeSeriesSerializer
                     foreach (double item in collection)
                     {
                         if (pos++ != 0) stringBuilder.Append(',');
-                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, Digits, Version);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, digits, ver);
                     }
                 }
                 else if (value is IEnumerable<long> enumerable)
@@ -81,7 +81,7 @@ namespace Universe.TimeSeriesSerializer
                     foreach (double item in enumerable)
                     {
                         if (pos++ != 0) stringBuilder.Append(',');
-                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, Digits, Version);
+                        OptimizedDoubleConverter.ConvertToJson(stringBuilder, item, digits, ver);
                     }
                 }
                 else
