@@ -27,7 +27,6 @@ steps:
       mono --version
     displayName: 'Install LLVM'
     
-
   - bash: |
       sudo apt-get update -qq
       for p in "mono-runtime" "mono-complete" "msbuild" "nuget"; do
@@ -87,10 +86,10 @@ steps:
       ls -la Universe.TimeSeriesSerializer.Benchmark.exe
     
       Say "AOT-ing"
-      mono --aot=try-llvm -O=all Universe.TimeSeriesSerializer.Benchmark.exe
+      mono --aot=try-llvm -O=all Universe.TimeSeriesSerializer.Benchmark.exe || true
       
       Say "LAUNCHING"
-      mono BenchmarksZoo.exe
+      mono Universe.TimeSeriesSerializer.Benchmark.exe
       
       popd
     displayName: 'Benchmark'
