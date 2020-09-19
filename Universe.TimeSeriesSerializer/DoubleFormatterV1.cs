@@ -7,28 +7,15 @@ namespace Universe.TimeSeriesSerializer
 {
     public static class DoubleFormatterV1
     {
-        private const int MAX_DIGITS = 19;
-        private static long[] Power10;
-
-        static DoubleFormatterV1()
-        {
-            Power10 = new long[MAX_DIGITS + 1];
-            long p = 1;
-            for (int i = 0; i <= MAX_DIGITS; i++)
-            {
-                Power10[i] = p;
-                p = p * 10;
-            }
-        }
         
 #if ! (NET40 || NET35 || NET30 || NET20)        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif
         public unsafe static void Optimized_N_Digits(StringBuilder b, double v, int decimals)
         {
-            long power10 = Power10[decimals];
+            long power10 = Power10.Power10Signed64[decimals];
             
-            if (v < 0) {v = -v; b.Append('-');} // make v >= 0
+            if (v < 0) {v = -v; b.Append('-');}
             var fv = Math.Floor(v); 
             long i = (long)fv;      
             long f = (long)Math.Floor((v - fv)*power10 + 0.5d);

@@ -12,7 +12,7 @@ namespace Universe.TimeSeriesSerializer
 #endif
         public static void Optimized_N_Digits(StringBuilder b, double v, int decimals)
         {
-            long power10 = DoubleFormatterV2.Power10Signed[decimals];
+            long power10 = Power10.Power10Signed64[decimals];
 
             if (v < 0) { v = -v; b.Append('-'); } // make v >= 0
             var fv = Math.Floor(v);
