@@ -1,7 +1,7 @@
 # name: $(BuildID).$(Date:yyyyMMdd)
 variables:
     MAJOR_MINOR: "1.0"
-    LLVM: "8"
+    LLVM: "9"
 
 jobs:
 
