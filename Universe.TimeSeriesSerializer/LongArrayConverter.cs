@@ -28,7 +28,7 @@ namespace Universe.TimeSeriesSerializer
                     for (int pos = 0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
-                        LowLevelLongConverters.HeaplessAppend(stringBuilder, arr[pos]);
+                        OptimizedLongFormatter.HeaplessAppend(stringBuilder, arr[pos]);
                     }
                 }
                 else if (value is List<long> list)
@@ -38,7 +38,7 @@ namespace Universe.TimeSeriesSerializer
                     for(int pos=0; pos < len; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
-                        LowLevelLongConverters.HeaplessAppend(stringBuilder, list[pos]);
+                        OptimizedLongFormatter.HeaplessAppend(stringBuilder, list[pos]);
                     }
                 }
                 else if (value is ICollection<long> collection)
@@ -49,7 +49,7 @@ namespace Universe.TimeSeriesSerializer
                     foreach (long item in collection)
                     {
                         if (pos++ != 0) stringBuilder.Append(',');
-                        LowLevelLongConverters.HeaplessAppend(stringBuilder, item);
+                        OptimizedLongFormatter.HeaplessAppend(stringBuilder, item);
                     }
                 }
                 else if (value is IEnumerable<long> enumerable)
@@ -59,7 +59,7 @@ namespace Universe.TimeSeriesSerializer
                     foreach (long item in enumerable)
                     {
                         if (pos++ != 0) stringBuilder.Append(',');
-                        LowLevelLongConverters.HeaplessAppend(stringBuilder, item);
+                        OptimizedLongFormatter.HeaplessAppend(stringBuilder, item);
                     }
                 }
                 else

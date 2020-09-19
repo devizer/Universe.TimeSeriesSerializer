@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Universe.TimeSeriesSerializer
 {
-    public static class LowLevelLongConverters
+    public static class OptimizedLongFormatter
     {
 
 #if ! (NET40 || NET35 || NET30 || NET20)        
