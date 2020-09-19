@@ -22,7 +22,7 @@ steps:
     
   - bash: |
       wget --no-check-certificate -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
-      sudo bash /tmp/llvm.sh 
+      sudo bash /tmp/llvm.sh 9 
       lldb --version
       mono --version
     displayName: 'Install LLVM'
