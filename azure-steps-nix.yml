@@ -15,19 +15,25 @@ steps:
 
   - bash: |
       Say "AGENT_OS: '${AGENT_OS}'"
+      DOTNET_Url=https://dot.net/v1/dotnet-install.sh; 
+      try-and-retry curl -o /tmp/_dotnet-install.sh -ksSL $DOTNET_Url
+      time try-and-retry timeout 666 sudo -E bash /tmp/_dotnet-install.sh -c 5.0 -i /usr/share/dotnet
+      
       dotnet --info
       Say "Environment"
       printenv | sort
-    displayName: 'Install dotnet sdk 3.1 on linux/osx'
+    displayName: 'Install dotnet sdk 3.1 and 5.0 on linux/osx'
     
   - bash: |
       wget --no-check-certificate -O /tmp/llvm.sh https://apt.llvm.org/llvm.sh
-      sudo bash /tmp/llvm.sh 9 
+      sudo bash /tmp/llvm.sh 12 
       lldb --version
       mono --version
     displayName: 'Install LLVM'
     
   - bash: |
+      script=https://raw.githubusercontent.com/devizer/test-and-build/master/lab/install-MONO.sh; (wget -q -nv --no-check-certificate -O - $script 2>/dev/null || curl -ksSL $script) | sudo bash
+      
       sudo apt-get update -qq
       for p in "mono-runtime" "mono-complete" "msbuild" "nuget"; do
         Say "INSTALLING $p"
