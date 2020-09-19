@@ -99,7 +99,8 @@ steps:
       
       Say "Rebuild for v5.0"
       Reset-Target-Framework -fw "net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0"
-      msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=0.42.5 /p:Version=0.42.5
+      msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=0.42.5 /p:Version=0.42.5 || true
+      dotnet build -c Release
       
       pushd Universe.TimeSeriesSerializer.Benchmark
       # dotnet run -c Release -f netcoreapp3.1
@@ -114,6 +115,7 @@ steps:
       Say "LAUNCHING"
       mono Universe.TimeSeriesSerializer.Benchmark.exe
       
+      popd
       popd
     displayName: 'Benchmark'
 
