@@ -89,6 +89,9 @@ steps:
 
   - script: |
       set -e
+      Say "SDKs List"
+      dotnet --list-sdks
+      
       Say "Mark bin as bin.public"
       pushd Universe.TimeSeriesSerializer
       mv bin bin.public
