@@ -67,10 +67,10 @@ steps:
       pushd Universe.TimeSeriesSerializer/bin/Release
       ls -la *nupkg*
       Say "nupkg: [$(ls *.nupkg)]"
-      try-and-retry nuget push *.nupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
+      try-and-retry nuget push *.nupkg  $MY_NUGET_PACKAGER -Timeout 66 -Source https://www.nuget.org/api/v2/package
       Say "snupkg: [$(ls *.snupkg)]"
-      sleep 66
-      try-and-retry nuget push *.snupkg $MY_NUGET_PACKAGER
+      sleep 6
+      try-and-retry nuget push *.snupkg $MY_NUGET_PACKAGER -Timeout 66 -Source https://api.nuget.org/v3/index.json
       popd
     condition: succeededOrFailed()
     displayName: 'Push nupkg'
