@@ -41,7 +41,9 @@ steps:
       version_build=$(set TZ=GMT; git log -n 999999 --date=raw --pretty=format:"%cd" | wc -l)
       PACKAGE_VER="${MAJOR_MINOR}.$version_build"
       Say "PACKAGE_VER: $PACKAGE_VER"
-      dotnet build -c Release /p:"PackageVersion=$PACKAGE_VER" /p:"Version=$PACKAGE_VER"
+      dotnet build -c Release /p:"PackageVersion=$PACKAGE_VER" /p:"Version=$PACKAGE_VER" || true
+      Say "MS BUILD"
+      msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=$PACKAGE_VER /p:Version=$PACKAGE_VER
       dotnet test -c Release -f netcoreapp3.1
     displayName: 'Build'
 
