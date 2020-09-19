@@ -62,13 +62,13 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             Data = list.ToArray();
         }
 
-        [Benchmark(Description = "long[]:Optimized")]
+        [Benchmark(Description = "long:Optimized")]
         public StringBuilder Optimized()
         {
             return Serialize(optionalConverter: LongArrayConverter.Instance);
         }
 
-        [Benchmark(Baseline = true, Description = "long[]:Default")]
+        [Benchmark(Baseline = true, Description = "long:Default")]
         public StringBuilder Default()
         {
             return Serialize();

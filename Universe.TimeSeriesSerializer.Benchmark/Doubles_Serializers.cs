@@ -55,13 +55,13 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             Data = list.ToArray();
         }
 
-        [Benchmark(Description = "double[]:Optimized")]
+        [Benchmark(Description = "double:Optimized")]
         public StringBuilder Optimized()
         {
             return Serialize(optionalConverter: DoubleArrayConverter.Create(6));
         }
 
-        [Benchmark(Baseline = true, Description = "double[]:Default")]
+        [Benchmark(Baseline = true, Description = "double:Default")]
         public StringBuilder Default()
         {
             return Serialize();
