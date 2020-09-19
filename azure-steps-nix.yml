@@ -45,11 +45,6 @@ steps:
     displayName: 'List Packages'
 
   - script: |
-      try-and-retry sudo apt-get update -q
-      smart-apt-install qemu-user-static toilet
-    displayName: 'preinstall qemu-user-static and toilet' 
-
-  - script: |
       dotnet restore || dotnet restore --disable-parallel 
       msbuild /t:Restore || true
     displayName: 'Restore dependencies'
