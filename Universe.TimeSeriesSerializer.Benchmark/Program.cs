@@ -26,7 +26,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             MonoRuntime monoRuntime = MonoRuntime.Default;
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                config = config.With(run.With(ClrRuntime.Net48).WithId("FW-4.8"));
+                config = config.With(run.With(ClrRuntime.Net48).WithId("FW 4.8"));
             }
             else
             {
