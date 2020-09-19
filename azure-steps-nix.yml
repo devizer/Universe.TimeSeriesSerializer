@@ -49,17 +49,24 @@ steps:
       dotnet test -c Release -f netcoreapp3.1
     displayName: 'Test'
 
-
   - script: |
       set -e
       pushd Universe.TimeSeriesSerializer/bin/Release
       ls -la *.nupkg*
       try-end-retry nuget push *.nupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
       try-end-retry nuget push *.snupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
+      popd
     condition: succeededOrFailed()
-    displayName: 'build nuget'
+    displayName: 'Push nupkg'
     env:
       MY_NUGET_PACKAGER: $(NUGET_PACKAGER)
+
+  - script: |
+      set -e
+      pushd Universe.TimeSeriesSerializer.Benchmark
+      dotnet run -c Release -f netcoreapp3.1
+      popd
+    displayName: 'Benchmark'
 
   - script: |
       Show-System-Stat || true
