@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -11,15 +11,12 @@ using Newtonsoft.Json.Serialization;
 namespace Universe.TimeSeriesSerializer.Benchmark
 {
     [RankColumn, MemoryDiagnoser]
-    public class Longs_Serializers
+    public class Doubles_Serializers
     {
         public enum CollectionFlavour
         {
             Array,
-            List,
             ROList,
-            ROArray,
-            Enumerable,
         }
         
         private object[] Data;
@@ -30,10 +27,8 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         // [Params(true, false)]
         public bool Minify = true;
 
-        [Params(CollectionFlavour.Array, CollectionFlavour.List, CollectionFlavour.ROArray, CollectionFlavour.ROList, CollectionFlavour.Enumerable)]
+        [Params(CollectionFlavour.Array, CollectionFlavour.ROList)]
         public CollectionFlavour Kind;
-
-        private long[] TheLongs = new[] { 0, 1L, 12L, 123L, 1234L, 12345678987654321L, -1L, -12L, -123L, -1234L, -12345678987654321L };
 
         private static readonly DefaultContractResolver TheContractResolver = new DefaultContractResolver
         {
@@ -47,28 +42,26 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         [GlobalSetup]
         public void Setup()
         {
+            Random rand = new Random(42);
             List<object> list = new List<object>();
             for (int i = 0; i < ArraysCount; i++)
             {
-                var item = TheLongs.Concat(Enumerable.Range(0, 61).Select(x => 42L));
-                if (Kind == CollectionFlavour.List) list.Add(item.ToList());
-                else if (Kind == CollectionFlavour.Array) list.Add(item.ToArray());
+                var item = Enumerable.Range(1, 61).Select(x => rand.NextDouble() * 10000);
+                if (Kind == CollectionFlavour.Array) list.Add(item.ToArray());
                 else if (Kind == CollectionFlavour.ROList) list.Add(item.ToList().ToImmutableList());
-                else if (Kind == CollectionFlavour.ROArray) list.Add(item.ToList().ToImmutableArray());
-                else if (Kind == CollectionFlavour.Enumerable) list.Add(AsEnumerable(item.ToArray()));
                 else throw new InvalidOperationException($"Unknown flavour: {Kind}");
             }
 
             Data = list.ToArray();
         }
 
-        [Benchmark(Description = "Optimized")]
+        [Benchmark(Description = "double[]:Optimized")]
         public StringBuilder Optimized()
         {
-            return Serialize(optionalConverter: LongArrayConverter.Instance);
+            return Serialize(optionalConverter: DoubleArrayConverter.Create(6));
         }
 
-        [Benchmark(Baseline = true, Description = "Default")]
+        [Benchmark(Baseline = true, Description = "double[]:Default")]
         public StringBuilder Default()
         {
             return Serialize();
@@ -90,14 +83,6 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             jwr.Flush();
 
             return json;
-        }
-
-        static IEnumerable<long> AsEnumerable(IEnumerable<long> arg)
-        {
-            foreach (var l in arg)
-            {
-                yield return l;
-            }
         }
 
     }

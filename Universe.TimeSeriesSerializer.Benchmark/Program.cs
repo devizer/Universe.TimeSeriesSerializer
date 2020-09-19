@@ -15,7 +15,8 @@ namespace Universe.TimeSeriesSerializer.Benchmark
     {
         static void Main(string[] args)
         {
-            var run = Job.MediumRun;
+            // var run = Job.MediumRun;
+            var run = Job.Dry;
             Job jobCore21 = run.With(Jit.RyuJit).With(CoreRuntime.Core21).WithId($"Core 2.1");
             Job jobCore31 = run.With(Jit.RyuJit).With(CoreRuntime.Core31).WithId($"Core 3.1");
             Job jobCore50 = run.With(Jit.RyuJit).With(CoreRuntime.Core50).WithId($"Core 5.0");
