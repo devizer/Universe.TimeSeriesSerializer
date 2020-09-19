@@ -1,6 +1,6 @@
 # name: $(BuildID).$(Date:yyyyMMdd)
 variables:
-    MAJOR_MINOR: "0.1"
+    MAJOR_MINOR: "1.0"
 
 jobs:
 

@@ -50,8 +50,10 @@ steps:
 
   - script: |
       set -e
-      cd Universe.TimeSeriesSerializer/bin/Release/
-      ls -la 
+      pushd Universe.TimeSeriesSerializer/bin/Release
+      ls -la *.nupkg*
+      try-end-retry nuget push *.nupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
+      try-end-retry nuget push *.snupkg $MY_NUGET_PACKAGER -Timeout 600 -Source https://www.nuget.org/api/v2/package
     condition: succeededOrFailed()
     displayName: 'build nuget'
     env:
