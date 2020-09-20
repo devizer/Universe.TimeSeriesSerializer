@@ -32,9 +32,11 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: | 
+        dotnet build --configuration Release --no-restore || true
+        msbuild /t:restore,rebuild /verbosity:quiet /p:Configuration=Release
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --verbosity normal
     - name: Reinstall dotnet and BenchmarkDotNet.Tool
       run: |
         # dotnet tool install -g BenchmarkDotNet.Tool
