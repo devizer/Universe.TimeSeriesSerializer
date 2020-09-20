@@ -78,6 +78,16 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 Converters = optimizedConverters,
             };
 
+            {
+                var json = JsonConvert.SerializeObject(Data, DefaultSettings);
+                Console.WriteLine($"// DOUBLES-DATA-LENGTH[default]: {json.Length} chars");
+            }
+            {
+                var json = JsonConvert.SerializeObject(Data, OptimizedSettings);
+                Console.WriteLine($"// DOUBLES-DATA-LENGTH[optimized]: {json.Length} chars");
+            }
+
+
         }
 
         [Benchmark(Description = "double:optimized")]

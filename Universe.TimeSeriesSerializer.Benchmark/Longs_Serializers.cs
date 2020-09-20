@@ -80,6 +80,9 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 Converters = optimizedConverters,
             };
 
+            var json = JsonConvert.SerializeObject(Data, DefaultSettings);
+            Console.WriteLine($"// LONGS-DATA-LENGTH: {json.Length} chars");
+
         }
 
         [Benchmark(Description = "long:optimized")]
