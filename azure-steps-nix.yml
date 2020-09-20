@@ -97,10 +97,12 @@ steps:
       mv bin bin.public
       popd
       
-      Say "Rebuild for v5.0"
+      Say "Rebuild for v5.0: Reset-Target-Framework"
       Reset-Target-Framework -fw "net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0"
-      msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=0.42.5 /p:Version=0.42.5 || true
-      dotnet build -c Release
+      Say "Rebuild for v5.0: MSBUILD"
+      msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=0.42.5 /p:Version=0.42.5 /verbosity:quiet || true
+      Say "Rebuild for v5.0: DOTNET Build"
+      dotnet build -c Release -v quiet
       
       pushd Universe.TimeSeriesSerializer.Benchmark
       # dotnet run -c Release -f netcoreapp3.1
