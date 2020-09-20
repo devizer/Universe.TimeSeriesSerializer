@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Universe.TimeSeriesSerializer.Benchmark.Longs_Serializers-20200919-220747</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=ubuntu 16.04
+Intel Xeon Platinum 8171M CPU 2.60GHz, 1 CPU, 2 logical and 2 physical cores
+  [Host]   : Mono 6.12.0.90 (tarball Fri), X64 
+  Core 2.1 : .NET Core 2.1.22 (CoreCLR 4.6.29220.03, CoreFX 4.6.29220.01), X64 RyuJIT
+  Core 3.1 : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  Core 5.0 : .NET Core 5.0.0 (CoreCLR 5.0.20.45114, CoreFX 5.0.20.45114), X64 RyuJIT
+  LLVM Off : Mono 6.12.0.90 (tarball Fri), X64 
+  LLVM On  : Mono 6.12.0.90 (tarball Fri), X64 
+</code></pre>
+<pre><code>IterationCount=15  LaunchCount=2  WarmupCount=10  
+</code></pre>
+
+<table>
+<thead><tr><th>  Method</th><th>Job</th><th>Jit</th><th>Runtime</th><th>Kind</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th><th>RatioSD</th><th>Rank</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>long:optimized</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>Array</td><td>39.32 &mu;s</td><td>0.328 &mu;s</td><td>0.470 &mu;s</td><td>0.11</td><td>0.00</td><td>1</td><td>8.3008</td><td>0.5493</td><td>-</td><td>53392 B</td>
+</tr><tr><td>long:default</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>Array</td><td>342.23 &mu;s</td><td>2.421 &mu;s</td><td>3.393 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>8.7891</td><td>0.4883</td><td>-</td><td>63192 B</td>
+</tr><tr><td>long:optimized</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>Array</td><td>41.67 &mu;s</td><td>0.426 &mu;s</td><td>0.638 &mu;s</td><td>0.12</td><td>0.00</td><td>1</td><td>2.8076</td><td>0.2441</td><td>-</td><td>53192 B</td>
+</tr><tr><td>long:default</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>Array</td><td>341.83 &mu;s</td><td>2.876 &mu;s</td><td>4.305 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>2.9297</td><td>-</td><td>-</td><td>63173 B</td>
+</tr><tr><td>long:optimized</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>Array</td><td>43.00 &mu;s</td><td>0.583 &mu;s</td><td>0.872 &mu;s</td><td>0.14</td><td>0.00</td><td>1</td><td>2.8076</td><td>0.2441</td><td>-</td><td>53193 B</td>
+</tr><tr><td>long:default</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>Array</td><td>304.34 &mu;s</td><td>3.855 &mu;s</td><td>5.770 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>2.9297</td><td>-</td><td>-</td><td>63173 B</td>
+</tr><tr><td>long:optimized</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>Array</td><td>121.38 &mu;s</td><td>1.016 &mu;s</td><td>1.520 &mu;s</td><td>0.23</td><td>0.00</td><td>1</td><td>9.8877</td><td>1.0986</td><td>1.0986</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>Array</td><td>524.33 &mu;s</td><td>4.645 &mu;s</td><td>6.952 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>10.7422</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>Array</td><td>62.00 &mu;s</td><td>1.580 &mu;s</td><td>2.163 &mu;s</td><td>0.14</td><td>0.01</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>Array</td><td>436.47 &mu;s</td><td>15.884 &mu;s</td><td>23.775 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>List</td><td>43.43 &mu;s</td><td>0.501 &mu;s</td><td>0.735 &mu;s</td><td>0.23</td><td>0.01</td><td>1</td><td>8.3008</td><td>0.5493</td><td>-</td><td>53392 B</td>
+</tr><tr><td>long:default</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>List</td><td>189.74 &mu;s</td><td>2.592 &mu;s</td><td>3.879 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>9.5215</td><td>0.7324</td><td>-</td><td>63352 B</td>
+</tr><tr><td>long:optimized</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>List</td><td>46.28 &mu;s</td><td>0.554 &mu;s</td><td>0.795 &mu;s</td><td>0.24</td><td>0.00</td><td>1</td><td>2.8076</td><td>0.1831</td><td>-</td><td>53193 B</td>
+</tr><tr><td>long:default</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>List</td><td>191.71 &mu;s</td><td>1.673 &mu;s</td><td>2.505 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.1738</td><td>0.2441</td><td>-</td><td>63328 B</td>
+</tr><tr><td>long:optimized</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>List</td><td>43.25 &mu;s</td><td>0.690 &mu;s</td><td>1.032 &mu;s</td><td>0.26</td><td>0.01</td><td>1</td><td>2.8076</td><td>0.2441</td><td>-</td><td>53193 B</td>
+</tr><tr><td>long:default</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>List</td><td>168.96 &mu;s</td><td>2.089 &mu;s</td><td>3.063 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.1738</td><td>0.2441</td><td>-</td><td>63330 B</td>
+</tr><tr><td>long:optimized</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>List</td><td>128.89 &mu;s</td><td>1.060 &mu;s</td><td>1.586 &mu;s</td><td>0.44</td><td>0.01</td><td>1</td><td>9.7656</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>List</td><td>292.95 &mu;s</td><td>2.074 &mu;s</td><td>2.974 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>10.7422</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>List</td><td>70.08 &mu;s</td><td>2.873 &mu;s</td><td>3.932 &mu;s</td><td>0.36</td><td>0.03</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>List</td><td>196.24 &mu;s</td><td>7.566 &mu;s</td><td>11.089 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>ROList</td><td>117.91 &mu;s</td><td>0.874 &mu;s</td><td>1.196 &mu;s</td><td>0.44</td><td>0.01</td><td>1</td><td>8.4229</td><td>0.6104</td><td>-</td><td>54832 B</td>
+</tr><tr><td>long:default</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>ROList</td><td>266.58 &mu;s</td><td>2.761 &mu;s</td><td>4.133 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>8.7891</td><td>0.4883</td><td>-</td><td>63992 B</td>
+</tr><tr><td>long:optimized</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>ROList</td><td>125.64 &mu;s</td><td>1.221 &mu;s</td><td>1.828 &mu;s</td><td>0.47</td><td>0.01</td><td>1</td><td>2.6855</td><td>0.2441</td><td>-</td><td>54632 B</td>
+</tr><tr><td>long:default</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>ROList</td><td>266.80 &mu;s</td><td>2.128 &mu;s</td><td>3.185 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.4180</td><td>-</td><td>-</td><td>63970 B</td>
+</tr><tr><td>long:optimized</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>ROList</td><td>117.82 &mu;s</td><td>1.199 &mu;s</td><td>1.794 &mu;s</td><td>0.48</td><td>0.01</td><td>1</td><td>2.8076</td><td>0.2441</td><td>-</td><td>54632 B</td>
+</tr><tr><td>long:default</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>ROList</td><td>243.43 &mu;s</td><td>1.875 &mu;s</td><td>2.806 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.4180</td><td>-</td><td>-</td><td>63968 B</td>
+</tr><tr><td>long:optimized</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>ROList</td><td>215.41 &mu;s</td><td>1.478 &mu;s</td><td>2.166 &mu;s</td><td>0.54</td><td>0.01</td><td>1</td><td>9.7656</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>ROList</td><td>402.12 &mu;s</td><td>3.068 &mu;s</td><td>4.592 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>10.7422</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>ROList</td><td>139.41 &mu;s</td><td>5.667 &mu;s</td><td>8.306 &mu;s</td><td>0.51</td><td>0.04</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>ROList</td><td>272.05 &mu;s</td><td>9.685 &mu;s</td><td>12.593 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>ROArray</td><td>55.82 &mu;s</td><td>0.609 &mu;s</td><td>0.912 &mu;s</td><td>0.30</td><td>0.01</td><td>1</td><td>8.4229</td><td>0.6714</td><td>-</td><td>54032 B</td>
+</tr><tr><td>long:default</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>ROArray</td><td>184.68 &mu;s</td><td>1.500 &mu;s</td><td>2.245 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>9.5215</td><td>0.7324</td><td>-</td><td>63192 B</td>
+</tr><tr><td>long:optimized</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>ROArray</td><td>55.56 &mu;s</td><td>0.850 &mu;s</td><td>1.272 &mu;s</td><td>0.30</td><td>0.01</td><td>1</td><td>2.8687</td><td>0.2441</td><td>-</td><td>53833 B</td>
+</tr><tr><td>long:default</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>ROArray</td><td>187.42 &mu;s</td><td>1.537 &mu;s</td><td>2.301 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.1738</td><td>0.2441</td><td>-</td><td>63171 B</td>
+</tr><tr><td>long:optimized</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>ROArray</td><td>55.42 &mu;s</td><td>0.798 &mu;s</td><td>1.194 &mu;s</td><td>0.33</td><td>0.01</td><td>1</td><td>2.8687</td><td>0.2441</td><td>-</td><td>53832 B</td>
+</tr><tr><td>long:default</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>ROArray</td><td>167.98 &mu;s</td><td>2.118 &mu;s</td><td>3.169 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.1738</td><td>0.2441</td><td>-</td><td>63170 B</td>
+</tr><tr><td>long:optimized</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>ROArray</td><td>135.17 &mu;s</td><td>1.377 &mu;s</td><td>2.060 &mu;s</td><td>0.45</td><td>0.01</td><td>1</td><td>9.7656</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>ROArray</td><td>300.11 &mu;s</td><td>2.703 &mu;s</td><td>4.045 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>10.7422</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>ROArray</td><td>81.03 &mu;s</td><td>1.812 &mu;s</td><td>2.481 &mu;s</td><td>0.42</td><td>0.03</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>ROArray</td><td>193.86 &mu;s</td><td>5.970 &mu;s</td><td>8.369 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>Enumerable</td><td>69.92 &mu;s</td><td>0.895 &mu;s</td><td>1.339 &mu;s</td><td>0.36</td><td>0.01</td><td>1</td><td>8.9111</td><td>0.7324</td><td>-</td><td>58192 B</td>
+</tr><tr><td>long:default</td><td>Core 2.1</td><td>RyuJit</td><td>.NET Core 2.1</td><td>Enumerable</td><td>192.10 &mu;s</td><td>1.169 &mu;s</td><td>1.750 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>9.5215</td><td>0.7324</td><td>-</td><td>64312 B</td>
+</tr><tr><td>long:optimized</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>Enumerable</td><td>75.27 &mu;s</td><td>0.821 &mu;s</td><td>1.230 &mu;s</td><td>0.37</td><td>0.01</td><td>1</td><td>3.0518</td><td>0.2441</td><td>-</td><td>57992 B</td>
+</tr><tr><td>long:default</td><td>Core 3.1</td><td>RyuJit</td><td>.NET Core 3.1</td><td>Enumerable</td><td>200.93 &mu;s</td><td>1.545 &mu;s</td><td>2.264 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.4180</td><td>0.2441</td><td>-</td><td>64288 B</td>
+</tr><tr><td>long:optimized</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>Enumerable</td><td>68.11 &mu;s</td><td>0.661 &mu;s</td><td>0.990 &mu;s</td><td>0.39</td><td>0.01</td><td>1</td><td>3.0518</td><td>0.2441</td><td>-</td><td>57992 B</td>
+</tr><tr><td>long:default</td><td>Core 5.0</td><td>RyuJit</td><td>.NET Core 5.0</td><td>Enumerable</td><td>176.53 &mu;s</td><td>1.854 &mu;s</td><td>2.776 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>3.4180</td><td>0.2441</td><td>-</td><td>64290 B</td>
+</tr><tr><td>long:optimized</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>Enumerable</td><td>157.95 &mu;s</td><td>1.298 &mu;s</td><td>1.943 &mu;s</td><td>0.49</td><td>0.01</td><td>1</td><td>10.7422</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM Off</td><td>LegacyJit</td><td>Mono</td><td>Enumerable</td><td>323.28 &mu;s</td><td>2.859 &mu;s</td><td>4.279 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>11.7188</td><td>0.9766</td><td>0.9766</td><td>-</td>
+</tr><tr><td>long:optimized</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>Enumerable</td><td>96.01 &mu;s</td><td>3.331 &mu;s</td><td>4.447 &mu;s</td><td>0.46</td><td>0.03</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr><tr><td>long:default</td><td>LLVM On</td><td>Llvm</td><td>Mono</td><td>Enumerable</td><td>211.24 &mu;s</td><td>7.458 &mu;s</td><td>10.455 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr></tbody></table>
+</body>
+</html>
