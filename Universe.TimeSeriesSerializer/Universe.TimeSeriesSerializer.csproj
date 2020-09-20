@@ -39,9 +39,8 @@
         <Title>Universe.TimeSeriesSerializer</Title>
         <Authors>Volodymyr Hoida</Authors>
         <Product>Universe.TimeSeriesSerializer</Product>
-        <Description>Converting numbers/doubles to a string is a complicated matter and can be huge performance killer if you need to convert a lot of doubles. Here is the performance optimized transparent JSON converters for numerics kind of data. 
-            Targets everywhere: Net Framework 2.0-4.8, Net Standard 1.3-2.1, Net Core 1.0-3.1</Description>
-        <PackageProjectUrl>https://github.com/devizer/Universe.CpuUsage</PackageProjectUrl>
+        <Description>Performance optimized transparent JSON converters for numerics kind of data. Targets everywhere: Net Framework 2.0-4.8, Net Standard 1.3-2.1, Net Core 1.0-3.1. Converting numbers/doubles to a string is a complicated matter and can be huge performance killer if you need to convert a lot.</Description>
+        <PackageProjectUrl>https://github.com/devizer/Universe.TimeSeriesSerializer</PackageProjectUrl>
         <RepositoryUrl>https://github.com/devizer/Universe.TimeSeriesSerializer</RepositoryUrl>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <!-- PackageIconUrl>https://raw.githubusercontent.com/devizer/Universe.CpuUsage/master/images/CpuUsage.Icon-V2.png</PackageIconUrl -->
