@@ -100,6 +100,10 @@ steps:
       Say "Rebuild for v5.0: Reset-Target-Framework"
       Reset-Target-Framework -fw "net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0"
 
+      # rebuild only benchmark
+      pushd Universe.TimeSeriesSerializer.Benchmark
+      # dotnet run -c Release -f netcoreapp3.1
+
       Say "Rebuild for v5.0: dotnet restore"
       dotnet restore -v quiet || dotnet restore --disable-parallel -v quiet 
       Say "Rebuild for v5.0: msbuild restore"
@@ -110,8 +114,6 @@ steps:
       Say "Rebuild for v5.0: DOTNET Build"
       dotnet build -c Release -v quiet
       
-      pushd Universe.TimeSeriesSerializer.Benchmark
-      # dotnet run -c Release -f netcoreapp3.1
 
       pushd bin/Release/net4.8
       Say "ABOUT Universe.TimeSeriesSerializer.Benchmark.exe FILE:"
