@@ -24,6 +24,17 @@ namespace Universe.TimeSeriesSerializer
 #if ! (NET40 || NET35 || NET30 || NET20)        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif        
+        public static void ConvertToJson(StringBuilder b, double? argNullable, int decimals, DoubleArrayConverterVersion ver)
+        {
+            if (argNullable == null)
+                b.Append("null");
+            else
+                ConvertToJson(b, argNullable.Value, decimals, ver);
+        }
+        
+#if ! (NET40 || NET35 || NET30 || NET20)        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif        
         public static string DefaultJsonImplementation(double arg)
         {
             var text = arg.ToString("R", CultureInfo.InvariantCulture);

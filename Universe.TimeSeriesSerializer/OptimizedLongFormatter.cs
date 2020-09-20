@@ -44,6 +44,17 @@ namespace Universe.TimeSeriesSerializer
             return GetDigitsCount((long) arg);
         }
         
+#if ! (NET40 || NET35 || NET30 || NET20)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#endif
+        public static void HeaplessAppend(StringBuilder builder, long? arg)
+        {
+            if (arg == null)
+                builder.Append("null");
+            else
+                HeaplessAppend(builder, arg.Value);
+        }
+        
 #if ! (NET40 || NET35 || NET30 || NET20)        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #endif        
