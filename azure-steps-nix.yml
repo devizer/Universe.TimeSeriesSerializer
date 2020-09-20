@@ -99,6 +99,12 @@ steps:
       
       Say "Rebuild for v5.0: Reset-Target-Framework"
       Reset-Target-Framework -fw "net48;netcoreapp2.1;netcoreapp3.1;netcoreapp5.0"
+
+      Say "Rebuild for v5.0: dotnet restore"
+      dotnet restore -v quiet || dotnet restore --disable-parallel -v quiet 
+      Say "Rebuild for v5.0: msbuild restore"
+      msbuild /t:Restore /verbosity:quiet || true
+      
       Say "Rebuild for v5.0: MSBUILD"
       msbuild /t:Rebuild /p:Configuration=Release /p:PackageVersion=0.42.5 /p:Version=0.42.5 /verbosity:quiet || true
       Say "Rebuild for v5.0: DOTNET Build"
