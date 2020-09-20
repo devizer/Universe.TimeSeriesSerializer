@@ -70,14 +70,9 @@ namespace Universe.TimeSeriesSerializer.Tests
         }
 
         [Test]
-        public void Tests()
+        public void Test_Full_Set_With_Different_Lengths()
         {
-            ActAndAssert(null, "Null object");
-            ActAndAssert(new TypedCollection(), "Null property");
-            
             List<long> cases = BuildArguments();
-            FiveActsAndAsserts(cases.ToArray(), $"Full set of longs, {cases.Count} total");
-            FiveActsAndAsserts(new long[0], $"zero length, empty");
 
             for (int len = 1; len <= 2; len++)
             {
