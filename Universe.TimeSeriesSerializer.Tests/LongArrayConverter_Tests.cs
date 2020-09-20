@@ -12,7 +12,7 @@ namespace Universe.TimeSeriesSerializer.Tests
     public class LongArrayConverter_Tests
     {
 
-        static List<long> BuildArguments()
+        static List<long> BuildTestArguments()
         {
             List<long> cases = new List<long>() { 0, long.MinValue, long.MinValue + 1, long.MaxValue, long.MaxValue - 1, };
             decimal cur = 1m;
@@ -59,7 +59,7 @@ namespace Universe.TimeSeriesSerializer.Tests
         [Test]
         public void Test_Full_Set_of_Longs()
         {
-            var fullSet = BuildArguments().ToArray();
+            var fullSet = BuildTestArguments().ToArray();
             FiveActsAndAsserts(fullSet, $"Full set of longs, {fullSet.Length} total");
         }
 
@@ -72,7 +72,7 @@ namespace Universe.TimeSeriesSerializer.Tests
         [Test]
         public void Test_Full_Set_With_Different_Lengths()
         {
-            List<long> cases = BuildArguments();
+            List<long> cases = BuildTestArguments();
 
             for (int len = 1; len <= 2; len++)
             {

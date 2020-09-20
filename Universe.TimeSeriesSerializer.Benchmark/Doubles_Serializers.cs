@@ -57,7 +57,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 else if (Kind == CollectionFlavour.ROList) list.Add(item.ToList().ToImmutableList());
                 else if (Kind == CollectionFlavour.ROArray) list.Add(item.ToList().ToImmutableArray());
                 else if (Kind == CollectionFlavour.Enumerable) list.Add(AsEnumerable(item.ToArray()));
-                else throw new InvalidOperationException($"Unknown flavour: {Kind}");
+                else throw new InvalidOperationException($"Unknown flavor: {Kind}");
             }
 
             Data = list.ToArray();
