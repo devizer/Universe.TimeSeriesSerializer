@@ -88,8 +88,8 @@ namespace Universe.TimeSeriesSerializer.Tests
         {
             ActAndAssert(src, $"Array: {arrayDescription}");
             ActAndAssert(src.ToList(), $"List: {arrayDescription}");
-            ActAndAssert(src.ToImmutableArray(), $"ImmutableArray: {arrayDescription}");
-            ActAndAssert(src.ToImmutableList(), $"ImmutableArray: {arrayDescription}");
+            ActAndAssert(src.ToList().ToImmutableArray(), $"ImmutableArray: {arrayDescription}");
+            ActAndAssert(src.ToList().ToImmutableList(), $"ImmutableArray: {arrayDescription}");
             ActAndAssert(AsEnumerable(src), $"Enumerable: {arrayDescription}");
         }
 
