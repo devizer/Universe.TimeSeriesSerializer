@@ -8,7 +8,7 @@ The `DoubleArrayConverter` class is for collections of `double` and `double?` it
 
 ## Benchmark
 
-| Collection | Job         | Method    |  | Long Mean | Speed up |  | Double Mean | Speed up |
+| Collection | Job         | Method    |  | Long's Mean | Speed up |  | Double's Mean | Speed up |
 | ---------- | ----------- | ----------|--| ---------:| --------:|--| -----------:| --------:|
 | **Array**      | Core 2.1    | optimized |  | 33.12 μs  | 9.1x      |  | 177.58 μs   | 4.0x      |
 | Array      | Core 2.1    | default   |  | 290.28 μs |          |  | 706.81 μs   |          |
