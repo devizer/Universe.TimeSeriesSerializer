@@ -11,7 +11,7 @@ namespace Universe.TimeSeriesSerializer
 #if NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2 || NETSTANDARD1_3 || NETSTANDARD1_4 || NETSTANDARD1_5 || NETSTANDARD1_6
             return baseType.GetTypeInfo().IsAssignableFrom(candidate.GetTypeInfo());
 #else
-            return typeof(IEnumerable<long>).IsAssignableFrom(candidate);
+            return baseType.IsAssignableFrom(candidate);
 #endif
         }
         
