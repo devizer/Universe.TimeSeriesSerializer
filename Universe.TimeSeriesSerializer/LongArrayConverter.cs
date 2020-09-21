@@ -28,7 +28,8 @@ namespace Universe.TimeSeriesSerializer
                 {
                     int len = arr.Length;
                     stringBuilder = new StringBuilder(len << 1);
-                    for (int pos = 0; pos < len; pos++)
+                    // for (int pos = 0; pos < len; pos++)
+                    for (int pos = 0; pos < arr.Length; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
                         OptimizedLongFormatter.HeaplessAppend(stringBuilder, arr[pos]);
@@ -38,7 +39,8 @@ namespace Universe.TimeSeriesSerializer
                 {
                     int len = arrNullable.Length;
                     stringBuilder = new StringBuilder(len << 1);
-                    for (int pos = 0; pos < len; pos++)
+                    // for (int pos = 0; pos < len; pos++)
+                    for (int pos = 0; pos < arrNullable.Length; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
                         OptimizedLongFormatter.HeaplessAppend(stringBuilder, arrNullable[pos]);

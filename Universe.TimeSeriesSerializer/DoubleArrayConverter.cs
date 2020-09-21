@@ -51,7 +51,8 @@ namespace Universe.TimeSeriesSerializer
                 {
                     int len = arr.Length;
                     stringBuilder = new StringBuilder(len << 3);
-                    for (int pos = 0; pos < len; pos++)
+                    // for (int pos = 0; pos < len; pos++)
+                    for (int pos = 0; pos < arr.Length; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
                         OptimizedDoubleConverter.ConvertToJson(stringBuilder, arr[pos], digits, ver);
@@ -61,7 +62,8 @@ namespace Universe.TimeSeriesSerializer
                 {
                     int len = arrNullable.Length;
                     stringBuilder = new StringBuilder(len << 3);
-                    for (int pos = 0; pos < len; pos++)
+                    // for (int pos = 0; pos < len; pos++)
+                    for (int pos = 0; pos < arrNullable.Length; pos++)
                     {
                         if (pos != 0) stringBuilder.Append(',');
                         OptimizedDoubleConverter.ConvertToJson(stringBuilder, arrNullable[pos], digits, ver);
