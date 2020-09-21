@@ -31,8 +31,8 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             }
             else
             {
-                config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("LLVM On")});
-                config = config.With(new[] {run.With(monoRuntime).WithId("LLVM Off")});
+                config = config.With(new[] {run.With(Jit.Llvm).With(monoRuntime).WithId("Mono+LLVM")});
+                config = config.With(new[] {run.With(monoRuntime).WithId("Mono legacy")});
             }
             
             config = config.With(JsonExporter.Custom(fileNameSuffix: "-full", indentJson: true, excludeMeasurements: false));
