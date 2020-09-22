@@ -4,9 +4,11 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using BenchmarkDotNet.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Universe.TimeSeriesSerializer.Benchmark
 {
@@ -22,7 +24,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             Enumerable,
         }
         
-        private object[] Data;
+        private IEnumerable<double>[] Data;
 
         // [Params(20)]
         public int ArraysCount = 20;
@@ -43,12 +45,17 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         };
 
         private JsonSerializerSettings DefaultSettings, OptimizedSettings;
+        JsonSerializerOptions SystemSettings = new JsonSerializerOptions
+        {
+            WriteIndented = false,
+        };
+
 
         [GlobalSetup]
         public void Setup()
         {
             Random rand = new Random(42);
-            List<object> list = new List<object>();
+            List<IEnumerable<double>> list = new List<IEnumerable<double>>();
             for (int i = 0; i < ArraysCount; i++)
             {
                 var item = Enumerable.Range(1, 61).Select(x => rand.NextDouble() * 10000);
@@ -80,14 +87,28 @@ namespace Universe.TimeSeriesSerializer.Benchmark
 
             {
                 var json = JsonConvert.SerializeObject(Data, DefaultSettings);
-                Console.WriteLine($"// DOUBLES-DATA-LENGTH[default]: {json.Length} chars");
+                Console.WriteLine($"// DOUBLES-DATA-LENGTH[json.net]: {json.Length} chars");
+            }
+            {
+                var json = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(Data, SystemSettings);
+                Console.WriteLine($"// DOUBLES-DATA-LENGTH[system]: {json.Length} bytes");
             }
             {
                 var json = JsonConvert.SerializeObject(Data, OptimizedSettings);
                 Console.WriteLine($"// DOUBLES-DATA-LENGTH[optimized]: {json.Length} chars");
             }
+        }
 
+        [Benchmark(Baseline = true, Description = "double:json.net")]
+        public string Default()
+        {
+            return JsonConvert.SerializeObject(Data, DefaultSettings);
+        }
 
+        [Benchmark(Description = "double:system")]
+        public byte[] SystemText()
+        {
+            return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(Data, SystemSettings);
         }
 
         [Benchmark(Description = "double:optimized")]
@@ -97,11 +118,6 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
-        [Benchmark(Baseline = true, Description = "double:default")]
-        public string Default()
-        {
-            return JsonConvert.SerializeObject(Data, DefaultSettings);
-        }
 
         private StringBuilder Serialize_Wrong_and_Slow(JsonConverter optionalConverter = null)
         {

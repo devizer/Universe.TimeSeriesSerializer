@@ -86,16 +86,19 @@ namespace Universe.TimeSeriesSerializer.Benchmark
                 Converters = optimizedConverters,
             };
 
-            var json = JsonConvert.SerializeObject(Data, DefaultSettings);
-            Console.WriteLine($"// LONGS-DATA-LENGTH: {json.Length} chars");
+            {
+                var json = JsonConvert.SerializeObject(Data, DefaultSettings);
+                Console.WriteLine($"// LONGS-DATA-LENGTH[json.net]: {json.Length} chars");
+            }
+            {
+                var json = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(Data, SystemSettings);
+                Console.WriteLine($"// LONGS-DATA-LENGTH[system]: {json.Length} bytes");
+            }
+            {
+                var json = JsonConvert.SerializeObject(Data, OptimizedSettings);
+                Console.WriteLine($"// LONGS-DATA-LENGTH[optimized]: {json.Length} chars");
+            }
 
-        }
-
-        [Benchmark(Description = "long:optimized")]
-        public string Optimized()
-        {
-            // return Serialize_Wrong_And_Slow(optionalConverter: LongArrayConverter.Instance);
-            return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
         [Benchmark(Baseline = true, Description = "long:json.net")]
@@ -108,6 +111,12 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         public byte[] SystemText()
         {
             return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(Data, SystemSettings);
+        }
+
+        [Benchmark(Description = "long:optimized")]
+        public string Optimized()
+        {
+            return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
         private StringBuilder Serialize_Wrong_And_Slow(JsonConverter optionalConverter = null)
