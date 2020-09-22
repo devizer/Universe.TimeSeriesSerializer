@@ -15,4 +15,8 @@
       <ProjectReference Include="..\Universe.TimeSeriesSerializer\Universe.TimeSeriesSerializer.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Doubles_Serializers.cs" />
+    </ItemGroup>
+
 </Project>

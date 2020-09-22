@@ -4,9 +4,11 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using BenchmarkDotNet.Attributes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Universe.TimeSeriesSerializer.Benchmark
 {
@@ -22,7 +24,7 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             Enumerable,
         }
         
-        private object[] Data;
+        private IEnumerable<long>[] Data;
 
         // [Params(20)]
         public int ArraysCount = 20;
@@ -45,12 +47,16 @@ namespace Universe.TimeSeriesSerializer.Benchmark
         };
         
         private JsonSerializerSettings DefaultSettings, OptimizedSettings;
+        JsonSerializerOptions SystemSettings = new JsonSerializerOptions
+        {
+            WriteIndented = false,
+        };
 
 
         [GlobalSetup]
         public void Setup()
         {
-            List<object> list = new List<object>();
+            List<IEnumerable<long>> list = new List<IEnumerable<long>>();
             for (int i = 0; i < ArraysCount; i++)
             {
                 var item = TheLongs.Concat(Enumerable.Range(0, 61).Select(x => 42L));
@@ -92,10 +98,16 @@ namespace Universe.TimeSeriesSerializer.Benchmark
             return JsonConvert.SerializeObject(Data, OptimizedSettings);
         }
 
-        [Benchmark(Baseline = true, Description = "long:default")]
+        [Benchmark(Baseline = true, Description = "long:json.net")]
         public string Default()
         {
             return JsonConvert.SerializeObject(Data, DefaultSettings);
+        }
+
+        [Benchmark(Description = "long:system")]
+        public byte[] SystemText()
+        {
+            return System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(Data, SystemSettings);
         }
 
         private StringBuilder Serialize_Wrong_And_Slow(JsonConverter optionalConverter = null)
