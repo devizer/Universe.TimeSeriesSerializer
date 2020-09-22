@@ -10,6 +10,7 @@ steps:
       echo "##vso[task.setvariable variable=BUILD_URL]$BUILD_URL"
       echo "##vso[task.setvariable variable=JOB_URL]$JOB_URL"
       echo "##vso[task.setvariable variable=NEED_DEPLOY]$NEED_DEPLOY"
+      echo "   AGENT_OS: ${AGENT_OS}"
       echo "  BUILD_URL: ${BUILD_URL}"
       echo "    JOB_URL: ${JOB_URL}"
       echo "NEED_DEPLOY: ${NEED_DEPLOY}"
