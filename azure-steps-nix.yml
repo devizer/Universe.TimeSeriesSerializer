@@ -115,7 +115,7 @@ steps:
       dotnet build -c Release -v quiet
       
 
-      pushd bin/Release/net4.8
+      pushd bin/Release/net48
       Say "ABOUT Universe.TimeSeriesSerializer.Benchmark.exe FILE:"
       ls -la Universe.TimeSeriesSerializer.Benchmark.exe
     

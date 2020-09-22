@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8' />
+<title>Universe.TimeSeriesSerializer.Benchmark.Longs_Serializers-20200921-073738</title>
+
+<style type="text/css">
+	table { border-collapse: collapse; display: block; width: 100%; overflow: auto; }
+	td, th { padding: 6px 13px; border: 1px solid #ddd; text-align: right; }
+	tr { background-color: #fff; border-top: 1px solid #ccc; }
+	tr:nth-child(even) { background: #f8f8f8; }
+</style>
+</head>
+<body>
+<pre><code>
+BenchmarkDotNet=v0.12.1, OS=Windows 10.0.17763.1339 (1809/October2018Update/Redstone5)
+Intel Xeon CPU E3-1270 V2 3.50GHz, 1 CPU, 8 logical and 4 physical cores
+.NET Core SDK=5.0.100-rc.1.20452.10
+  [Host] : .NET Core 3.1.8 (CoreCLR 4.700.20.41105, CoreFX 4.700.20.41903), X64 RyuJIT
+  FW 4.8 : .NET Framework 4.8 (4.8.4220.0), X64 RyuJIT
+</code></pre>
+<pre><code>Job=FW 4.8  Runtime=.NET 4.8  IterationCount=15  
+LaunchCount=2  WarmupCount=10  
+</code></pre>
+
+<table>
+<thead><tr><th>  Method</th><th>Kind</th><th>Mean</th><th>Error</th><th>StdDev</th><th>Ratio</th><th>RatioSD</th><th>Rank</th><th>Gen 0</th><th>Gen 1</th><th>Gen 2</th><th>Allocated</th>
+</tr>
+</thead><tbody><tr><td>long:optimized</td><td>Array</td><td>38.85 &mu;s</td><td>2.091 &mu;s</td><td>3.130 &mu;s</td><td>0.15</td><td>0.01</td><td>1</td><td>12.7563</td><td>-</td><td>-</td><td>52.32 KB</td>
+</tr><tr><td>long:default</td><td>Array</td><td>264.42 &mu;s</td><td>6.258 &mu;s</td><td>9.367 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>14.6484</td><td>-</td><td>-</td><td>61.92 KB</td>
+</tr><tr><td>long:optimized</td><td>List</td><td>43.76 &mu;s</td><td>2.384 &mu;s</td><td>3.569 &mu;s</td><td>0.26</td><td>0.02</td><td>1</td><td>12.7563</td><td>-</td><td>-</td><td>52.32 KB</td>
+</tr><tr><td>long:default</td><td>List</td><td>169.39 &mu;s</td><td>2.311 &mu;s</td><td>3.240 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>15.1367</td><td>-</td><td>-</td><td>62.08 KB</td>
+</tr><tr><td>long:optimized</td><td>ROList</td><td>147.38 &mu;s</td><td>4.673 &mu;s</td><td>6.994 &mu;s</td><td>0.54</td><td>0.02</td><td>1</td><td>12.9395</td><td>-</td><td>-</td><td>53.74 KB</td>
+</tr><tr><td>long:default</td><td>ROList</td><td>274.35 &mu;s</td><td>6.239 &mu;s</td><td>9.338 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>15.1367</td><td>-</td><td>-</td><td>62.71 KB</td>
+</tr><tr><td>long:optimized</td><td>ROArray</td><td>51.81 &mu;s</td><td>1.444 &mu;s</td><td>2.117 &mu;s</td><td>0.31</td><td>0.02</td><td>1</td><td>12.8784</td><td>-</td><td>-</td><td>52.95 KB</td>
+</tr><tr><td>long:default</td><td>ROArray</td><td>169.04 &mu;s</td><td>3.683 &mu;s</td><td>5.399 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>14.8926</td><td>-</td><td>-</td><td>61.92 KB</td>
+</tr><tr><td>long:optimized</td><td>Enumerable</td><td>66.52 &mu;s</td><td>0.714 &mu;s</td><td>1.069 &mu;s</td><td>0.39</td><td>0.01</td><td>1</td><td>13.8550</td><td>-</td><td>-</td><td>57.02 KB</td>
+</tr><tr><td>long:default</td><td>Enumerable</td><td>172.09 &mu;s</td><td>2.446 &mu;s</td><td>3.348 &mu;s</td><td>1.00</td><td>0.00</td><td>2</td><td>15.3809</td><td>-</td><td>-</td><td>63.02 KB</td>
+</tr></tbody></table>
+</body>
+</html>
