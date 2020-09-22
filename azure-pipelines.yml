@@ -18,6 +18,7 @@ jobs:
 trigger:
   - master
 
+
 pr:
   branches:
     exclude:
