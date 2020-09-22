@@ -8,7 +8,7 @@ jobs:
   - job: Serializers_On_Linux
     variables:
       OS: Linux
-    timeoutInMinutes: 360
+    timeoutInMinutes: 359
     cancelTimeoutInMinutes: 10
     pool:
       vmImage: 'ubuntu-16.04'
