@@ -95,7 +95,7 @@ steps:
       sleep 6
       try-and-retry nuget push *.snupkg $MY_NUGET_PACKAGER -Timeout 66 -Source https://api.nuget.org/v3/index.json
       popd
-    condition: and(succeeded(), eq(variables.NEED_DEPLOY, "true"))
+    condition: and(succeeded(), eq(variables.NEED_DEPLOY, 'true'))
     displayName: 'Push nupkg'
     env:
       MY_NUGET_PACKAGER: $(NUGET_PACKAGER)
