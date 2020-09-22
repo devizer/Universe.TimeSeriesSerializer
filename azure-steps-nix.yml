@@ -3,8 +3,8 @@
 steps:
 
   - bash: |
-      needDeploy=$(echo "$BUILD_SOURCEVERSIONMESSAGE" | grep -i "the stable")
-      if [[ -n "$needDeploy" ]]; then needDeploy=true; fi
+      NEED_DEPLOY=$(echo "$BUILD_SOURCEVERSIONMESSAGE" | grep -i "the stable")
+      if [[ -n "NEED_DEPLOY" ]]; then NEED_DEPLOY=true; fi
       BUILD_URL="${ENDPOINT_URL_SYSTEMVSSCONNECTION}${SYSTEM_TEAMPROJECT}/_build/results?buildId=${BUILD_BUILDID}"
       JOB_URL="${BUILD_URL}&view=logs&j=${SYSTEM_JOBID}"
       echo "##vso[task.setvariable variable=BUILD_URL]$BUILD_URL"
